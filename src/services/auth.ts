@@ -6,8 +6,7 @@ Amplify.configure({
     Cognito: {
       userPoolId: import.meta.env.VITE_COGNITO_USER_POOL_ID,
       userPoolClientId: import.meta.env.VITE_COGNITO_CLIENT_ID,
-      identityPoolId: import.meta.env.VITE_COGNITO_IDENTITY_POOL_ID, // 可選
-      // 其他可選：signUpVerificationMethod、passwordFormat、loginWith 等
+      identityPoolId: import.meta.env.VITE_COGNITO_IDENTITY_POOL_ID, // オプション
     }
   }
 })

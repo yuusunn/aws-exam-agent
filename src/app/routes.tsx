@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFound";
 import Guard from "../utils/guard";
+import Login from "../pages/Login";
 
 export const router = createBrowserRouter([
   {
@@ -12,6 +13,7 @@ export const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Home /> },
+      { path: "login", element: <Login /> },
       { path: "dashboard", element: <Guard><Dashboard/></Guard> },
     ],
   },
