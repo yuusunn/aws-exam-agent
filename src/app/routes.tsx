@@ -5,6 +5,7 @@ import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFound";
 import Guard from "../utils/guard";
 import Login from "../pages/Login";
+import Unsubscribe from "../pages/Unsubscribe";
 
 export const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "login", element: <Login /> },
+      { path: "unsubscribe", element: <Unsubscribe /> },
       { path: "dashboard", element: <Guard><Dashboard/></Guard> },
     ],
   },
