@@ -2,6 +2,7 @@ import { http, HttpResponse } from "msw";
 
 // 開発モードのモックハンドラー
 export const handlers = [
+  http.post("/api/subscribe", async () => HttpResponse.json({ ok: true })),
   http.post("/api/unsubscribe", async () => {
     return HttpResponse.json({ ok: true });
   }),
