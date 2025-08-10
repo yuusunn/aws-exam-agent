@@ -62,6 +62,13 @@ export class QnaInfraStack extends Stack {
       entry: path.join(__dirname, 'lambdas/sendWeekly.ts'),
       ...common,
     });
+    const cleanupFn = new lambdaNode.NodejsFunction(this, "CleanupQuestionsFn", {
+    entry: path.join(__dirname, "tools/cleanupQuestions.ts"),
+    ...common,
+    environment: {
+        ...common.environment,
+      },
+    });
 
     usersTable.grantReadWriteData(subscribeFn);
     usersTable.grantReadWriteData(unsubscribeFn);
@@ -69,6 +76,7 @@ export class QnaInfraStack extends Stack {
 
     questionsTable.grantReadData(questionCurrentFn);
     questionsTable.grantReadData(sendWeeklyFn);
+    questionsTable.grantReadWriteData(cleanupFn);
 
     // SES 權限
     sendWeeklyFn.addToRolePolicy(new iam.PolicyStatement({
@@ -115,5 +123,6 @@ export class QnaInfraStack extends Stack {
     new CfnOutput(this, 'SeedFunctionName', { value: seedFn.functionName });
     new CfnOutput(this, 'UsersTableName', { value: usersTable.tableName });
     new CfnOutput(this, 'QuestionsTableName', { value: questionsTable.tableName });
+    new CfnOutput(this, "CleanupFunctionName", { value: cleanupFn.functionName });
   }
 }
