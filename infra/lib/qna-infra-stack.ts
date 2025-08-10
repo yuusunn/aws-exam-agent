@@ -6,6 +6,10 @@ import * as lambdaNode from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as path from 'path';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as cf from 'aws-cdk-lib/aws-cloudfront';
+import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
+import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 // import * as events from 'aws-cdk-lib/aws-events';
 // import * as targets from 'aws-cdk-lib/aws-events-targets';
 
@@ -63,12 +67,42 @@ export class QnaInfraStack extends Stack {
       ...common,
     });
     const cleanupFn = new lambdaNode.NodejsFunction(this, "CleanupQuestionsFn", {
-    entry: path.join(__dirname, "tools/cleanupQuestions.ts"),
-    ...common,
-    environment: {
+      entry: path.join(__dirname, "tools/cleanupQuestions.ts"),
+      ...common,
+      environment: {
         ...common.environment,
       },
     });
+    const listQuestionsFn = new lambdaNode.NodejsFunction(this, 'ListQuestionsFn', {
+      entry: path.join(__dirname, 'lambdas/listQuestions.ts'),
+      ...common,
+    });
+    // ===== Frontend Hosting (S3 + CloudFront) =====
+    const siteBucket = new s3.Bucket(this, 'SiteBucket', {
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      enforceSSL: true,
+    });
+    const s3Origin = origins.S3BucketOrigin.withOriginAccessControl(siteBucket);
+    const distribution = new cf.Distribution(this, "SiteDistribution", {
+      defaultRootObject: "index.html",
+      defaultBehavior: {
+        origin: s3Origin,
+        viewerProtocolPolicy: cf.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      },
+      // SPA fallback
+      errorResponses: [
+        { httpStatus: 403, responseHttpStatus: 200, responsePagePath: "/index.html" },
+        { httpStatus: 404, responseHttpStatus: 200, responsePagePath: "/index.html" },
+      ],
+    });
+    // dist ディレクトリを S3 にデプロイ
+    new s3deploy.BucketDeployment(this, 'DeployWebsite', {
+        sources: [s3deploy.Source.asset('../frontend/dist')],
+        destinationBucket: siteBucket,
+        distribution,
+        distributionPaths: ['/*'],
+    });
+
 
     usersTable.grantReadWriteData(subscribeFn);
     usersTable.grantReadWriteData(unsubscribeFn);
@@ -77,6 +111,7 @@ export class QnaInfraStack extends Stack {
     questionsTable.grantReadData(questionCurrentFn);
     questionsTable.grantReadData(sendWeeklyFn);
     questionsTable.grantReadWriteData(cleanupFn);
+    questionsTable.grantReadData(listQuestionsFn);
 
     // SES 權限
     sendWeeklyFn.addToRolePolicy(new iam.PolicyStatement({
@@ -102,6 +137,8 @@ export class QnaInfraStack extends Stack {
       .addMethod('GET', new apigw.LambdaIntegration(questionCurrentFn));
     api.root.addResource('send-weekly')
       .addMethod('POST', new apigw.LambdaIntegration(sendWeeklyFn));
+    api.root.addResource('questions')
+      .addMethod('GET', new apigw.LambdaIntegration(listQuestionsFn));
 
     // 5) 定時 Lambda（週一配信）
     // 開発時は手動で sendWeeklyFn を実行するので、ここではコメントアウト
@@ -124,5 +161,6 @@ export class QnaInfraStack extends Stack {
     new CfnOutput(this, 'UsersTableName', { value: usersTable.tableName });
     new CfnOutput(this, 'QuestionsTableName', { value: questionsTable.tableName });
     new CfnOutput(this, "CleanupFunctionName", { value: cleanupFn.functionName });
+    new CfnOutput(this, 'SiteUrl', { value: 'https://' + distribution.domainName });
   }
 }
