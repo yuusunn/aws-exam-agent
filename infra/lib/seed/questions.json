@@ -1,37 +1,89 @@
 [
   {
-    "qId": "2025-W32",
-    "title": "What is CIDR?",
-    "body": "Classless Inter-Domain Routing (CIDR) is a method for allocating IP addresses and IP routing.",
-    "publishedAt": "2025-08-10T00:00:00Z",
-    "tags": ["network", "ip"]
+    "qId": "2025-08-11-01",
+    "title": "AWS Well-Architected フレー…",
+    "body": "AWS Well-Architected フレームワークは、クラウドアーキテクトがアプリケーション向けに実装可能な、安全で高いパフォーマンス、障害耐性を備え、効率的なインフラストラクチャを構築するのを目的として６つの柱から構成されている。 次の選択肢の中でフレームワークの内容に含まれないものはどれか？",
+    "choices": [
+      "持続可能性",
+      "信頼性",
+      "コストの最適化",
+      "高可用性"
+    ],
+    "correctAnswer": "高可用性",
+    "tags": [
+      "フレームワーク"
+    ],
+    "publishedAt": "2025-08-11T00:00:00Z"
   },
   {
-    "qId": "2025-W33",
-    "title": "What is an AWS Lambda cold start?",
-    "body": "A cold start occurs when a new Lambda function instance is initialized before handling an invocation.",
-    "publishedAt": "2025-08-17T00:00:00Z",
-    "tags": ["aws", "lambda"]
+    "qId": "2025-08-11-02",
+    "title": "ある企業が、カスタム AMI 上のテキストファイ…",
+    "body": "ある企業が、カスタム AMI 上のテキストファイルにアクセスキー (アクセスキー ID およびシークレットアクセスキー) を格納しようとしています。その企業は、アクセスキーを使用して、AMI から作成されたインスタンスから DynamoDB テーブルにアクセスします。セキュリティチームは、よりセキュアなソリューションを要求しています。¥nセキュリティチームの要求に応えるソリューションはどれですか。",
+    "choices": [
+      "アクセスキーを Amazon S3 バケットに格納し、起動時にインスタンスからアクセスキーを取得する。",
+      "インスタンスユーザーデータを介してアクセスキーをインスタンスに渡す。",
+      "プライベートサブネット内で起動されたキーサーバーからアクセスキーを取得する。",
+      "そのテーブルにアクセスする権限を持つ IAM ロールを作成し、そのロールを使用してすべてのインスタンスを起動する。"
+    ],
+    "correctAnswer": "そのテーブルにアクセスする権限を持つ IAM ロールを作成し、そのロールを使用してすべてのインスタンスを起動する。",
+    "tags": [
+      "アクセスキー",
+      "セキュリティソリューション"
+    ],
+    "publishedAt": "2025-08-11T00:00:00Z"
   },
   {
-    "qId": "2025-W34",
-    "title": "Explain API Gateway integration types.",
-    "body": "Common types include Lambda proxy, HTTP proxy, and private integrations.",
-    "publishedAt": "2025-08-24T00:00:00Z",
-    "tags": ["aws", "apigw"]
+    "qId": "2025-08-11-03",
+    "title": "ある企業が、ステートレス Web サーバーを使用…",
+    "body": "ある企業が、ステートレス Web サーバーを使用する高可用性 Web アプリケーションを開発しています。¥nセッション状態データを保持するのに適したサービスの組み合わせは次のどれですか？",
+    "choices": [
+      "CloudWatch + DynamoDB",
+      "CloudWatch + ElastiCache",
+      "DynamoDB + ElastiCache",
+      "CloudWatch + S3"
+    ],
+    "correctAnswer": "DynamoDB + ElastiCache",
+    "tags": [
+      "セッション",
+      "ステートレス Web サーバー",
+      "高可用性"
+    ],
+    "publishedAt": "2025-08-11T00:00:00Z"
   },
   {
-    "qId": "2025-W35",
-    "title": "What is DynamoDB partition key?",
-    "body": "The partition key is used to determine the partition (physical node) in which an item is stored.",
-    "publishedAt": "2025-08-31T00:00:00Z",
-    "tags": ["aws", "dynamodb"]
+    "qId": "2025-08-11-04",
+    "title": "ある企業において、販売担当者が売上ドキュメントを…",
+    "body": "ある企業において、販売担当者が売上ドキュメントを毎日アップロードしています。ソリューションアーキテクトは、それらのドキュメントを格納するため、重要ドキュメントの誤削除してしまっても復旧できる高耐久性ストレージソリューションを必要としています。¥nユーザーの要件を満たすソリューションは次のどれですか？",
+    "choices": [
+      "データをEBSボリュームに格納し、週1回スナップショットを作成する。",
+      "データをAmazonS3バケットに格納し、バージョニングを有効化する。",
+      "データを別々のAWSリージョンにある2つのAmazonS3バケットに格納する。",
+      "データをEC2インスタンスストレージに格納する。"
+    ],
+    "correctAnswer": "データをAmazonS3バケットに格納し、バージョニングを有効化する。",
+    "tags": [
+      "ストレージソリューション",
+      "高耐久性",
+      "誤削除復旧"
+    ],
+    "publishedAt": "2025-08-11T00:00:00Z"
   },
   {
-    "qId": "2025-W36",
-    "title": "What is CloudFront cache behavior?",
-    "body": "Cache behaviors let you configure how CloudFront processes requests for different paths.",
-    "publishedAt": "2025-09-07T00:00:00Z",
-    "tags": ["aws", "cloudfront"]
+    "qId": "2025-08-11-05",
+    "title": "あるアプリケーションに対して、初期ストレージ容量…",
+    "body": "あるアプリケーションに対して、初期ストレージ容量が 8 TB の高可用性リレーショナルデー タベースが必要です。データベースのサイズは、毎日 8 GB ずつ増加する見込みです。予想さ れるトラフィック量に対応するため、読み取り処理用として 8 個以上のリードレプリカが必要 です。¥nこれらの要件を満たす手段はどれですか。",
+    "choices": [
+      "DynamoDB",
+      "Amazon S3",
+      "Amazon Aurora",
+      "Amazon Redshift"
+    ],
+    "correctAnswer": "Amazon Aurora",
+    "tags": [
+      "高可用性リレーショナルデータベース",
+      "初期ストレージ容量",
+      "リードレプリカ"
+    ],
+    "publishedAt": "2025-08-11T00:00:00Z"
   }
 ]

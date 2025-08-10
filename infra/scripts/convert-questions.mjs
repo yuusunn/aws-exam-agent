@@ -1,5 +1,12 @@
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
+
+// 固定パスを取得するための設定
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const infraRoot = path.resolve(__dirname, "..");
+const DEFAULT_DEST = path.join(infraRoot, "lib", "seed", "questions.json");
 
 // qId 生成規則：更新日時から日付を抽出し、形式は YYYY-MM-DD-XX
 // 例: 2025-08-11-01
@@ -18,11 +25,23 @@ function makeTitle(body) {
   return t + (trimmed.length > 24 ? "…" : "");
 }
 
-const SRC = process.argv[2] || "source-questions.json";
-// questions.json エクスポート先（上書き）
-const DEST = process.argv[3] || "infra/lib/seed/questions.json";
+// CLI 設定
+// 叩き方：node infra/scripts/convert-questions.mjs <source.json> [dest.json]
+// node scripts/convert-questions.mjs lib/data/source-questions.json
+const SRC = process.argv[2];
+if (!SRC) {
+  console.error("Usage: node infra/scripts/convert-questions.mjs <source.json> [dest.json]");
+  process.exit(1);
+}
+// 相対・絶対パスをサポート
+const SRC_RESOLVED = path.resolve(process.cwd(), SRC);
+// 固定インポート先：infra/lib/seed/questions.json
+const DEST = process.argv[3]
+  ? path.resolve(process.cwd(), process.argv[3])
+  : DEFAULT_DEST;
 
-const raw = JSON.parse(fs.readFileSync(SRC, "utf-8"));
+// 読み取りとパース処理
+const raw = JSON.parse(fs.readFileSync(SRC_RESOLVED, "utf-8"));
 
 if (!Array.isArray(raw)) {
   throw new Error("Source must be an array");
