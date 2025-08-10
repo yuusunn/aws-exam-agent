@@ -1,0 +1,37 @@
+[
+  {
+    "qId": "2025-W32",
+    "title": "What is CIDR?",
+    "body": "Classless Inter-Domain Routing (CIDR) is a method for allocating IP addresses and IP routing.",
+    "publishedAt": "2025-08-10T00:00:00Z",
+    "tags": ["network", "ip"]
+  },
+  {
+    "qId": "2025-W33",
+    "title": "What is an AWS Lambda cold start?",
+    "body": "A cold start occurs when a new Lambda function instance is initialized before handling an invocation.",
+    "publishedAt": "2025-08-17T00:00:00Z",
+    "tags": ["aws", "lambda"]
+  },
+  {
+    "qId": "2025-W34",
+    "title": "Explain API Gateway integration types.",
+    "body": "Common types include Lambda proxy, HTTP proxy, and private integrations.",
+    "publishedAt": "2025-08-24T00:00:00Z",
+    "tags": ["aws", "apigw"]
+  },
+  {
+    "qId": "2025-W35",
+    "title": "What is DynamoDB partition key?",
+    "body": "The partition key is used to determine the partition (physical node) in which an item is stored.",
+    "publishedAt": "2025-08-31T00:00:00Z",
+    "tags": ["aws", "dynamodb"]
+  },
+  {
+    "qId": "2025-W36",
+    "title": "What is CloudFront cache behavior?",
+    "body": "Cache behaviors let you configure how CloudFront processes requests for different paths.",
+    "publishedAt": "2025-09-07T00:00:00Z",
+    "tags": ["aws", "cloudfront"]
+  }
+]
