@@ -31,7 +31,7 @@ export default function Login() {
             className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
             value={username}
             onChange={(e) => setU(e.target.value)}
-            placeholder="you@example.com"
+            placeholder="your@example.com"
           />
         </div>
         <div>
