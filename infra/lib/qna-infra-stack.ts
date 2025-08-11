@@ -162,5 +162,7 @@ export class QnaInfraStack extends Stack {
     new CfnOutput(this, 'QuestionsTableName', { value: questionsTable.tableName });
     new CfnOutput(this, "CleanupFunctionName", { value: cleanupFn.functionName });
     new CfnOutput(this, 'SiteUrl', { value: 'https://' + distribution.domainName });
+    new CfnOutput(this, 'SiteBucketName', { value: siteBucket.bucketName });
+    new CfnOutput(this, 'SiteDistributionId', { value: distribution.distributionId });
   }
 }

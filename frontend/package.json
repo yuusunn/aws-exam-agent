@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:frontend": "bash ./scripts/deploy-frontend.sh --stack QnaInfraStack --profile cdk-admin"
+
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.11.2",
