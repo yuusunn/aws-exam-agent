@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-  "deploy:frontend": "bash ./scripts/deploy-frontend-only.sh",
-  "deploy:full": "bash ./scripts/deploy-full.sh"
+    "deploy:frontend": "bash ./scripts/deploy-frontend-only.sh",
+    "deploy:full": "bash ./scripts/deploy-full.sh"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.11.2",
