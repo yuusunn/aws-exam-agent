@@ -121,10 +121,12 @@ export class QnaInfraStack extends Stack {
 
     // 4) API Gateway
     const api = new apigw.RestApi(this, 'QnaApi', {
+      restApiName: "QnaApi",
       deployOptions: { stageName: 'prod' },
       defaultCorsPreflightOptions: {
         allowOrigins: apigw.Cors.ALL_ORIGINS,
-        allowMethods: ['GET', 'POST', 'OPTIONS'],
+        allowMethods: apigw.Cors.ALL_METHODS,
+        allowHeaders: apigw.Cors.DEFAULT_HEADERS,
       },
     });
 
