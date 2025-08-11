@@ -5,10 +5,10 @@ import { router } from "./app/routes";
 import "./index.css";
 
 // 開発モードでMSWを有効化
-if (import.meta.env.DEV) {
-  const { worker } = await import("./mocks/browser");
-  await worker.start({ serviceWorker: { url: "/mockServiceWorker.js" } });
-}
+// if (import.meta.env.DEV) {
+//   const { worker } = await import("./mocks/browser");
+//   await worker.start({ serviceWorker: { url: "/mockServiceWorker.js" } });
+// }
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
